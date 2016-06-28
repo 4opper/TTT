@@ -18,12 +18,12 @@ app.Views.ResultView = Backbone.View.extend({
 
 // Pushes current search query into recent searches area and returns to start page
     backSearchForm: function () {    
-        app.collections.recentSearches.push({           
-            query: app.views.startPage.query,
-            numOfResults: app.views.startPage.collection.headerInfo.total_results,
-            serialNumber: this.number,
-        });
-        this.number++;
+        // app.collections.recentSearches.push({           
+        //     query: app.views.startPage.query,
+        //     numOfResults: app.views.startPage.collection.headerInfo.total_results,
+        //     serialNumber: this.number,
+        // });
+        // this.number++;
         app.routers.main.navigate("", {trigger: true});
     },
 

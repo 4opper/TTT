@@ -8,7 +8,15 @@ app.Routers.Router = Backbone.Router.extend ({
     },
 
     loadStartPage: function () {
-        app.views.startPage.renderRecentSearches();
+        if (app.views.startPage.query) {
+            app.collections.recentSearches.push({           
+                query: app.views.startPage.query,
+                numOfResults: app.views.startPage.collection.headerInfo.total_results,
+                serialNumber: app.views.result.number,
+            });
+            app.views.result.number++;
+            app.views.startPage.renderRecentSearches();
+        }
     },
 
     showSearchResults: function () {

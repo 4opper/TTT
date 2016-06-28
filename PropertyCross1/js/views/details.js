@@ -10,12 +10,12 @@ app.Views.DetailsView = Backbone.View.extend({
         'click #is_fave': 'removeFromFavourites',
     },
 
-// Renders  cliked apartments from faves page
+// Renders  clicked apartments from faves page
     renderFromFaves: function (query) {
         this.render(query, app.collections.favourites);
      },
 
-// Renders cliked apartments from serach result page
+// Renders clicked apartments from serach result page
     renderFromSearch: function (query) {
         this.render(query, app.views.startPage.collection);
      },
