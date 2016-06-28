@@ -1,3 +1,3 @@
-var RecentSearchesCollection = Backbone.Collection.extend({
-    model: SearchQueryModel,    
+app.Collections.RecentSearchesCollection = Backbone.Collection.extend({
+    model: app.Models.SearchQueryModel,    
 });

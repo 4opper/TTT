@@ -1,5 +1,5 @@
-var FavouritesCollection = Backbone.Collection.extend({
-    model: ApartmentModel,
+app.Collections.FavouritesCollection = Backbone.Collection.extend({
+    model: app.Models.ApartmentModel,
 
 // Adds faves which equals null to localStorage and then rewrites it on add or remove event
     initialize: function () {

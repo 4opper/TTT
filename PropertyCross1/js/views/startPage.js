@@ -1,16 +1,15 @@
-var StartPage = Backbone.View.extend ({
-	//query:'',
-	collection: new SearchResultsCollection(),
-	template: _.template($('#search_form_page').html()),
+app.Views.StartPage = Backbone.View.extend ({
+	collection: new app.Collections.SearchResultsCollection(),
 	number: 1,
 
 // Makes url by adding the inputed location to the default url
 	makeUrl: function (query) {
-		this.collection.url = this.collection.defaultUrl() + query	
+		this.collection.url = this.collection.defaultUrl() + query;	
 	},
 
 	initialize: function () {
-		this.render();
+		this.template = _.template($('#search_form_page').html());
+		this.render();		
 	},
 
 	render: function () {
@@ -22,7 +21,7 @@ var StartPage = Backbone.View.extend ({
     	this.collection.page = 1;
         this.render();
         this.templateRecentSearchElem = _.template($('#resent_search').html());
-        app.Collections.recentSearches.each(function (item) {
+        app.collections.recentSearches.each(function (item) {
             $('#search_form_info').append(this.templateRecentSearchElem(item.toJSON()));
         }, this);
     },
@@ -48,9 +47,9 @@ var StartPage = Backbone.View.extend ({
 // Takes the locetion from input box and makes appropriate url for fetching
 // and fetches info
 	makeFetch: function () {		
-		app.Views.result.apartmentList.i = 0;
-		app.Views.startPage.collection.headerInfo.result_amount = 0;
-		$('#loading').show();
+		app.views.result.apartmentList.i = 0;
+		app.views.startPage.collection.headerInfo.result_amount = 0;
+		app.services.preloader.show();
 		if (this.collection.headerInfo.result_amount) {
 			this.collection.reset();
 			this.collection.url = '';
@@ -62,20 +61,19 @@ var StartPage = Backbone.View.extend ({
 			this.collection.fetch({error: this.goError});
 		} else {
 			$('#loading').hide();
-			app.Routers.main.navigate('error?code=0', {trigger: true})
-		}
-
+			app.routers.main.navigate('error?code=0', {trigger: true});
+		}                          
 	},
 
 	goError: function () {
-		$('#loading').hide();
-		app.Routers.main.navigate('error?code=2', {trigger: true})		
+		app.services.preloader.hide();
+		app.routers.main.navigate('error?code=2', {trigger: true});
 	},
 
 // Allows to make a search by clicking the localing in recent searches area
 	goSearchResultFromHistory: function (e) {
-		app.Views.startPage.collection.headerInfo.result_amount = 0;
-		app.Views.result.apartmentList.i = 0;
+		app.views.startPage.collection.headerInfo.result_amount = 0;
+		app.views.result.apartmentList.i = 0;
 		$('#loading').show();
 		this.collection.reset();
 		this.collection.url = '';
@@ -85,6 +83,6 @@ var StartPage = Backbone.View.extend ({
     },
 
 	goFavouritesList: function () {
-		app.Routers.main.navigate('faves', {trigger: true})
-	},    
-})
+		app.routers.main.navigate('faves', {trigger: true});
+	}    
+});

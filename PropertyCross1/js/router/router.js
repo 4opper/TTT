@@ -1,4 +1,4 @@
-var Router = Backbone.Router.extend ({
+app.Routers.Router = Backbone.Router.extend ({
 	routes: {
 		'': 'loadStartPage',
         'search?q=*q': 'showSearchResults',
@@ -8,15 +8,15 @@ var Router = Backbone.Router.extend ({
     },
 
     loadStartPage: function () {
-        app.Views.startPage.renderRecentSearches();
+        app.views.startPage.renderRecentSearches();
     },
 
     showSearchResults: function () {
-	    app.Views.result.render()
+	    app.views.result.render();
     },
 
     goFaves: function () {
-        app.Views.favourite.render()
+        app.views.favourite.render();
     },
 
     goDetails: function () {        
@@ -24,6 +24,6 @@ var Router = Backbone.Router.extend ({
     },
 
     showError: function (code) {
-        app.Views.startPage.renderError(code)
-    },
-})
+        app.views.startPage.renderError(code);
+    }
+});

@@ -1,11 +1,13 @@
-var ResultView = Backbone.View.extend({
-    template: _.template($('#search_results_template').html()),
+app.Views.ResultView = Backbone.View.extend({
     number: 1,
     query: '',
+    
 
     initialize: function () {
-        this.apartmentList = new SearchResultApartmentList();
-    	this.listenTo(app.Views.startPage.collection, 'update', this.log);
+        this.template = _.template($('#search_results_template').html());
+        this.apartmentList = new app.Views.SearchResultApartmentList();
+        this.collection = app.views.startPage.collection;
+        app.services.listening.listen(this);
     },
 
     events: {
@@ -16,53 +18,57 @@ var ResultView = Backbone.View.extend({
 
 // Pushes current search query into recent searches area and returns to start page
     backSearchForm: function () {    
-        app.Collections.recentSearches.push({           
-            query: app.Views.startPage.query,
-            numOfResults: app.Views.startPage.collection.headerInfo.total_results,
+        app.collections.recentSearches.push({           
+            query: app.views.startPage.query,
+            numOfResults: app.views.startPage.collection.headerInfo.total_results,
             serialNumber: this.number,
         });
         this.number++;
-        app.Routers.main.navigate("", {trigger: true});
+        app.routers.main.navigate("", {trigger: true});
     },
 
-	log: function () {
-        $('#loading').hide();
-        if (app.Views.startPage.collection.headerInfo.result_amount) {
-            app.Routers.main.navigate('search?q=' + app.Views.startPage.query, {trigger: true}); 
-            this.render();      
+	loadPage: function () {
+        app.services.preloader.hide();
+        if (app.views.startPage.collection.headerInfo.result_amount) {
+            app.routers.main.navigate('search?q=' + app.views.startPage.query, {trigger: true}); 
+            this.render();  
+            if (app.views.startPage.collection.page >= app.views.startPage.collection.headerInfo.total_pages) {
+                $('#load_more_button').hide();             
+            };    
         } else {
-            app.Routers.main.navigate('error?code=1', {trigger: true})
+            app.routers.main.navigate('error?code=1', {trigger: true});
         }
 	},
 
     render: function () {
-        this.$el.html(this.template(app.Views.startPage.collection.headerInfo));
-        this.apartmentList.render(app.Views.startPage.collection);
-        //this.$el.append(this.apartmentList.render(app.Views.startPage.collection).$el);
+        this.$el.html(this.template(app.views.startPage.collection.headerInfo));
+        this.apartmentList.render(app.views.startPage.collection);
     },
 
 // Opens the page of clicked apartment
     goDetails: function (e) {
         this.query = $(e.currentTarget).prop('id');
-        app.Routers.main.navigate('details');
-        app.Views.details.renderFromSearch(this.query);
+        app.routers.main.navigate('details');
+        app.views.details.renderFromSearch(this.query);
     },
 
 // Loads one more page of search result from a server
     loadMore: function () {
-        $('#loading').show();
+        app.services.preloader.show();
         this.apartmentList.i = 0;
         var self = this;
-        app.Views.startPage.collection.addNewResults(function () {
+        app.views.startPage.collection.addNewResults(function () {
             self.apartmentList.render();
         });  
-    },
+    }
 });
 
-var SearchResultApartmentList = Backbone.View.extend({
-    tagName: 'li',
-    template: _.template($('#apartment_list_template').html()),
+app.Views.SearchResultApartmentList = Backbone.View.extend({
     i: 0,
+
+    initialize: function () {
+        this.template = _.template($('#apartment_list_template').html());
+    },
 
 // Adds the cid attr to all models of collection and appends them to the result area
     render: function (collection) {
@@ -73,7 +79,5 @@ var SearchResultApartmentList = Backbone.View.extend({
             $('#result').append(this.template(item.toJSON()));
             this.i++; 
         }, this);
-        //debugger;
-        //return this;
-    },    
+    }    
 });

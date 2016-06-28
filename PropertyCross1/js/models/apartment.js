@@ -1,4 +1,4 @@
-var ApartmentModel = Backbone.Model.extend({
+app.Models.ApartmentModel = Backbone.Model.extend({
     defaults: {
         thumb_url: 'img/apartment_placeholder.png',
         img_url: 'img/apartment_placeholder.png',
