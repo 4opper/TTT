@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>PropertyCross2</title>
+</head>
+<body>
+
+<div id="loading"></div>
+<div id="screen"></div>
+
+<!-- Start page template, no recent searches -->
+<script id="search_form_page" type="text/template">
+    <div id="header">
+        <h1 id="screen_title">PropertyCross</h1>
+        <button id="faves_btn" class="right_btn btn">
+            Faves
+        </button>
+    </div>
+    <div id="content">
+        <div class="inst_txt">
+            Use the form below to search for houses to buy. You can search by place-name, postcode, or click 'My
+            location', to search in your current location!
+        </div>
+        <div class="search_field">
+            <input id="search_text_input" type="text" size="40">
+        </div>
+        <div class="btn_search">
+            <button id="go_btn" class="btn, go">
+                Go
+            </button>
+        </div>
+        <div class="info_block" id="search_form_info">
+        </div>
+    </div>
+</script>
+
+<!-- Recent searches -->
+<script id="resent_search" type="text/template">
+    <ul>
+        <li>
+            <button class="btn btn_rec_search" id="<%= query %>"><%= query %> &nbsp&nbsp&nbsp  #<%= serialNumber %><span
+                    class="num_of_res"><%= numOfResults %></span></button>
+        </li>
+    </ul>
+</script>
+
+<!-- Error  -->
+<script id="search_form_error" type="text/template">
+    <p><%= error %></p>
+</script>
+
+<!-- Search result page with load more button. Without apartments itself-->
+<script id="search_results_template" type="text/template">
+    <div id="header">
+        <button id="back_search_form" class="left_btn btn">
+            Back
+        </button>
+        <h1 id="screen_title"><span id="result_amount"><%= result_amount %></span> of <%= total_results %> results</h1>
+    </div>
+    <div id="content">
+        <ul id="result">
+        </ul>
+        <div id="load_more">
+            <div id="more_loading"></div>
+            <button>Load more</button>
+        </div>
+    </div>
+</script>
+
+<!-- Favourite apartaments page. Without apartments itself  -->
+<script id="favourites_list_template" type="text/template">
+    <div id="header">
+        <button id="back_from_faves" class="left_btn btn">
+            Back
+        </button>
+        <h1 id="screen_title">Favourites</h1>
+    </div>
+    <div id="content">
+        <ul id="result">
+        </ul>
+    </div>
+</script>
+
+<!-- Apartment for result page -->
+<script id="apartment_list_template" type="text/template">
+    <li id="<%= cid %>" class="apart">
+        <img src="<%= thumb_url %>"/>
+        <h1>£<%= price %></h1>
+        <div><NOBR><%= title %></NOBR></div>
+    </li>
+</script>
+
+<!-- Apartment for favourites page -->
+<script id="faves_list_template" type="text/template">
+    <li id="<%= cid %>" class="apart_fave">
+        <img src="<%= thumb_url %>"/>
+        <h1>£<%= price %></h1>
+        <div><NOBR><%= title %></NOBR></div>
+    </li>
+</script>
+
+<!-- Details of certain apartment page  -->
+<script id="details_template" type="text/template">
+    <div id="header">
+        <button id="back_search_result" class="left_btn btn">
+            Back
+        </button>
+        <h1 id="screen_title">Property Details</h1>
+        <button id="is_not_fave" class="right_btn btn">
+            &#9733;
+        </button>
+    </div>
+    <div id="content">
+        <div id="details">
+            <h1>£<%= price %></h1>
+            <h2><%= title %></h2>
+            <img src='<%= img_url %>'>
+            <h4><%= bedroom_number %> beds, <%= bathroom_number %> bathrooms</h4>
+            <h4><%= summary %></h4>
+        </div>
+    </div>
+</script>
+
+<script src="js/libs/jquery.js"></script>
+<script src="js/libs/underscore.js"></script>
+<script src="js/libs/backbone.js"></script>
+<script src="js/models/search_query.js"></script>
+<script src="js/models/apartment.js"></script>
+<script src="js/collections/recent_searches.js"></script>
+<script src="js/collections/searchResults.js"></script>
+<script src="js/collections/favourites.js"></script>
+<script src="js/views/startPage.js"></script>
+<script src="js/views/results.js"></script>
+<script src="js/views/details.js"></script>
+<script src="js/views/favourite.js"></script>
+<script src="js/router/router.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
