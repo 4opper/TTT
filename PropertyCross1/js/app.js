@@ -29,11 +29,6 @@ app.Services.Preloader = function () {
 	};
 };
 
-app.Services.Listening = function () {
-	this.listen = function (obj) {
-		obj.listenTo(obj.collection, 'update', obj.loadPage);
-	};	
-};
 
 app.init = function () {
 	app.models.searchQuery = new app.Models.SearchQueryModel();
@@ -43,7 +38,6 @@ app.init = function () {
 	app.collections.favourites = new app.Collections.FavouritesCollection();
 
 	app.services.preloader = new app.Services.Preloader();
-	app.services.listening = new app.Services.Listening();
 
 	app.views.startPage = new app.Views.StartPage({
 		el: '#screen'

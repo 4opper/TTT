@@ -1,13 +1,20 @@
-app.Views.ResultView = Backbone.View.extend({
+app.Views.CollectionView = Backbone.View.extend({
+    initialize: function () {
+        this.collection = app.views.startPage.collection;
+        this.init();  
+        this.listenTo(this.collection, 'update', this.loadPage);
+    }
+});
+
+
+app.Views.ResultView = app.Views.CollectionView.extend({
     number: 1,
     query: '',
     
 
-    initialize: function () {
+    init: function () {
         this.template = _.template($('#search_results_template').html());
         this.apartmentList = new app.Views.SearchResultApartmentList();
-        this.collection = app.views.startPage.collection;
-        app.services.listening.listen(this);
     },
 
     events: {
@@ -16,14 +23,8 @@ app.Views.ResultView = Backbone.View.extend({
         'click #load_more': 'loadMore',
     },
 
-// Pushes current search query into recent searches area and returns to start page
+
     backSearchForm: function () {    
-        // app.collections.recentSearches.push({           
-        //     query: app.views.startPage.query,
-        //     numOfResults: app.views.startPage.collection.headerInfo.total_results,
-        //     serialNumber: this.number,
-        // });
-        // this.number++;
         app.routers.main.navigate("", {trigger: true});
     },
 
