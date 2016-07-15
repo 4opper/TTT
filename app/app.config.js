@@ -1,21 +1,30 @@
-angular.
-	module('PropertyCross').
-	config(['$locationProvider', '$routeProvider', function config($locationProvider, $routeProvider) {		
-		$locationProvider.hashPrefix('!');
+angular
+	.module('PropertyCross')
+	.config(['$stateProvider', '$urlRouterProvider', 
+		function config($stateProvider , $urlRouterProvider) {		
 
-		$routeProvider.
-			when('/home', {
+		$urlRouterProvider.otherwise('/home');
+
+		$stateProvider
+			.state('home', {
+				url: '/home',
 				template: '<start-page></start-page>'
-			}).
-			when('/search?:query', {
-				template: '<search-result></search-result>'
-			}).
-			when('/details', {
-				template: '<detailed-info></detailed-info>'
-			}).
-			when('/faves', {
+			})
+			.state('faves', {
+				url: '/faves',
 				template: '<faves></faves>'
-			}).
-			otherwise('/home')
-	}
+			})
+			.state('results', {
+				params: {
+            		query: null
+        		},				
+				url: '/results?:{query}',
+				template: '<search-result></search-result>',
+
+			})
+			.state('details', {
+				url: '/details',
+				template: '<detailed-info></detailed-info>'
+			})
+		}
 ]);

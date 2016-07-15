@@ -1,15 +1,15 @@
-<div id="details_template">
-    <div id="header">
-        <button ng-click='back()' id="back_search_result" class="left_btn btn">
+<div>
+    <div class="header">
+        <button ng-click="$ctrl.back()" class="left_btn btn">
             Back
         </button>
-        <h1 id="screen_title">Property Details</h1>
-        <button ng-click="toggleFave()" ng-class="currentAp.isFave ? 'is_fave' : 'is_not_fave'"  class="right_btn ">
+        <h1 class="screen_title">Property Details</h1>
+        <button ng-click="$ctrl.toggleFave()" ng-class="currentAp.isFave ? 'is_fave' : 'is_not_fave'"  class="right_btn ">
             &#9733;
         </button>
     </div>
-    <div id="content">
-        <div id="details">
+    <div class="content">
+        <div class="details">
             <h1> {{currentAp.price_formatted}} </h1>
             <h2> {{currentAp.title}} </h2>
             <img ng-src='{{currentAp.img_url}}'>

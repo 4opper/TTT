@@ -1,38 +1,34 @@
-<div id="search_form_page">
-    <div id="header">
-        <h1 id="screen_title">PropertyCross</h1>
-        <button ng-click="goFaves()" id="faves_btn" class="right_btn btn">
+
+    <div class="header">
+        <h1>PropertyCross</h1>
+        <button ui-sref="faves" ng-click="$ctrl.goFaves()" class="right_btn btn">
             Faves
         </button>
     </div>
 
-    <div id="content">
-        <div ng-show='loading' id="loading"></div>
+    <div class="content">
         <div class="inst_txt">
             Use the form below to search for houses to buy. You can search by place-name, postcode, or click 'My
             location', to search in your current location!
         </div>
         <div class="search_field">
-            <input ng-model="query" id="search_text_input" type="text" size="40">
+            <input ng-model="query" type="text" size="40">
         </div>
         <div class="btn_search">
-                <button ng-click="searchh(query)" id="go_btn" class="btn go"> 
+                <button ng-click="$ctrl.searchh(query)" class="btn go"> 
                     Go
                 </button>
         </div>
-
-        <div class="info_block" id="search_form_info">
-            <div id="error"> {{error}} </div>
-            <div id="resent_search">
+        <div class="info_block">
+            <div class="error"> {{error}} </div>
+            <div>
                 <ul>
                     <li ng-repeat="search in rSearches">
-                        <button ng-click="searchh(search.query)" class="btn btn_rec_search" > {{search.query}}  #{{$index + 1}}<span
-                                class="num_of_res">  {{search.results}} </span></button>
+                        <button ng-click="$ctrl.searchh(search.query)" class="btn btn_rec_search" > {{search.query}}  #{{$index + 1}} <span class="num_of_res">  {{search.results}} </span></button>
                     </li>
                 </ul>
             </div>
-        </div>
-        
+        </div>    
     </div>
-</div>
+
 

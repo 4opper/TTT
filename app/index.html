@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-	<html lang="en" ng-app="PropertyCross" class="no-js"> 
+	<html lang="en" ng-app="PropertyCross"> 
 <head>
 	<meta charset="utf-8">
-	<title>My AngularJS App</title>
+	<title>PropertyCross</title>
 	<link rel="stylesheet" href="app.css">
 	<link rel="stylesheet" href="loading/loading-bar.css">
 	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/ngstorage/ngStorage.js"></script>	
 	<script src="app.module.js"></script>
 	<script src="app.config.js"></script>
 	<script src="common-data.service.js"></script>
@@ -21,6 +22,6 @@
 	<script src="loading/loading-bar.js"></script>
 </head>
 <body>
-	<div ng-view></div>
+	<ui-view> </ui-view>
 </body>
 </html>

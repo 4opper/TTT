@@ -1,15 +1,15 @@
-<div id="search_results_template">
-    <div id="header">
-        <button ng-click="backHome()" id="back_search_form" class="left_btn btn">
+
+    <div class="header">
+        <button ng-click="backHome()" class="left_btn btn">
             Back
         </button>
-        <h1 id="screen_title"><span id="result_amount">  </span> {{response.listings.length}} of {{response.total_results}} results</h1>
+        <h1> {{response.listings.length}} of {{response.total_results}} results</h1>
     </div>
-    <div id="content">
-        <ul id="result">
-            <div id="apartment_list_template" type="text/template">
-
-                <li ng-repeat='apartment in response.listings' ng-click="showDetails($event)" id="{{apartment.$$hashKey}}" class="apart">
+    <div class="content">
+        <ul class="result">
+            <div>
+                <li ng-repeat='apartment in response.listings' ng-click="$ctrl.showDetails($event)" ui-sref="details"
+                id="{{apartment.lister_url}}" class="apart">
                     <img ng-src="{{apartment.img_url}}"/>
                     <h1>{{apartment.price_formatted}}</h1>
                     <div><NOBR>{{apartment.title}}</NOBR></div>
@@ -17,8 +17,8 @@
 
             </div>
         </ul>
-        <div id="load_more">
-            <button ng-click='loadMore()' id="load_more_button">Load more</button>
+        <div class="load_more">
+            <button ng-click='$ctrl.loadMore()'>Load more</button>
         </div>
     </div>
-</div>
+

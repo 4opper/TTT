@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('PropertyCross', [
-	'ngRoute',
+	'ui.router',
 	'common-data',
 	'start-page',
 	'search-result',
